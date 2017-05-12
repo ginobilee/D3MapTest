@@ -1,0 +1,12 @@
+﻿body{	
+	text-align:center;
+	margin:0;
+	padding:0;
+}	
+#chart{
+	background-color:#99CCFF;
+}
+.country{
+	stroke:#222;
+	fill:#ffffcc;
+}
