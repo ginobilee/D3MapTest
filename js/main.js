@@ -6,7 +6,7 @@
 										.attr("width",width)
 										.attr("height",height)
 										.attr("id","chart")
-								.append("g");
+										.append("g");
 								
 	var projection = d3.geoEquirectangular()
 												 .translate([width/2,height/2])
@@ -23,10 +23,11 @@
 	
 	var zoom = d3.zoom()
 							 .scaleExtent([0.5,10])
+							 .translateExtent([[0,0],[width,height]])
 							 .on("zoom",zoomed);
+							 
 	function zoomed(){
 		let t = d3.event.transform;
-		//console.log(t);
 		map.attr("transform",t);
 	}
 							 
