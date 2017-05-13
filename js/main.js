@@ -2,13 +2,16 @@
 	var width=document.body.clientWidth,height=width/2;
 	var scaleFactor = width/(2*Math.PI);
 	const map = d3.select("body")
-								.append("svg")
+								.append("svg")								
 										.attr("width",width)
 										.attr("height",height)
-										.attr("id","chart");
+										.attr("id","chart")
+								.append("g");
+								
 	var projection = d3.geoEquirectangular()
 												 .translate([width/2,height/2])
 												 .scale(scaleFactor);
+	
 	var path = d3.geoPath()
 							 .projection(projection);
 							 
@@ -17,7 +20,16 @@
 								.direction("s")
 								.offset([10,0])
 								.html(function(d){return "<strong>Name:</strong>"+d.properties.name+"<br /><strong>Mass:</strong>"+d.properties.mass+"<br /><strong>Recclass:</strong>"+d.properties.recclass+"<br /><strong>Longitude:</strong>"+d.properties.reclong+"<br /><strong>Latitude:</strong>"+d.properties.reclat;});
-								 
+	
+	var zoom = d3.zoom()
+							 .scaleExtent([0.5,10])
+							 .on("zoom",zoomed);
+	function zoomed(){
+		let t = d3.event.transform;
+		//console.log(t);
+		map.attr("transform",t);
+	}
+							 
 	d3.json("https://raw.githubusercontent.com/ginobilee/D3MapTest/master/countries.json",function(error,world){
 		if(error) return console.error(error);
 		
@@ -48,6 +60,9 @@
 						.call(tip)
 						.on("mouseover",tip.show)
 						.on("mouseout",tip.hide);
+						
+			map
+				.call(zoom);
 		});
 	});	
 }
