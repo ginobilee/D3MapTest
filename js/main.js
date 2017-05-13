@@ -56,8 +56,7 @@
 					.enter().append("path")
 						.attr("class","mete")
 						.attr("d",path.pointRadius(function(d){return radius(d.properties.mass);}))
-						.style("fill",function(d){return meteFill(d.properties.mass+1);})
-						.style("stroke","white")
+						.style("fill",function(d){return meteFill(d.properties.mass);})
 						.call(tip)
 						.on("mouseover",tip.show)
 						.on("mouseout",tip.hide);
